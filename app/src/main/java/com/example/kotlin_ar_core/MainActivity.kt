@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         // Enable AR-related functionality on ARCore supported devices only.
         maybeEnableArButton()
 
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_ar)
     }
 
     fun maybeEnableArButton() {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.kotlin_ar_core.common.CameraPermissionHelper
 import com.google.ar.core.ArCoreApk
+import com.google.ar.core.Config
 import com.google.ar.core.Session
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
 
@@ -41,6 +42,16 @@ class ArActivity : AppCompatActivity() {
                     ArCoreApk.InstallStatus.INSTALLED -> {
                         // Success: Safe to create the AR session.
                         mSession = Session(this)
+
+                        // Create a session config.
+                        val config = Config(mSession)
+
+                        // Do feature-specific operations here, such as enabling depth or turning on
+                        // support for Augmented Faces.
+
+                        // Configure the session.
+                        mSession.configure(config)
+
                     }
                     ArCoreApk.InstallStatus.INSTALL_REQUESTED -> {
                         // When this method returns `INSTALL_REQUESTED`:
@@ -68,6 +79,12 @@ class ArActivity : AppCompatActivity() {
         /*…*/
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        // Release native heap memory used by an ARCore session.
+        mSession.close()
+    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -85,4 +102,7 @@ class ArActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
+
 }
