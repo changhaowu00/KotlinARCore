@@ -1,9 +1,8 @@
 package com.example.kotlin_ar_core
 
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.widget.Toast
-import com.example.kotlin_ar_core.common.CameraPermissionHelper
+import com.example.kotlin_ar_core.common.helpers.CameraPermissionHelper
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.Config
 import com.google.ar.core.Session
@@ -16,6 +15,8 @@ class ArActivity : AppCompatActivity() {
 
     //AR SESION
     private lateinit var mSession : Session
+
+
 
     /*
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +38,7 @@ class ArActivity : AppCompatActivity() {
         // Ensure that Google Play Services for AR and ARCore device profile data are
         // installed and up to date.
         try {
-            if (mSession == null) {
+            if (mSession != null) {
                 when (ArCoreApk.getInstance().requestInstall(this, mUserRequestedInstall)) {
                     ArCoreApk.InstallStatus.INSTALLED -> {
                         // Success: Safe to create the AR session.
@@ -74,6 +75,7 @@ class ArActivity : AppCompatActivity() {
             return
         } catch (e: Exception) {
             //…
+            val a = e
             return  // mSession remains null, since session creation has failed.
         }
         /*…*/
